@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="hello">hello</string>
+    <string name="btn_text_1">百叶窗效果</string>
+    <string name="btn_text_2">小黑块效果</string>
+    <string name="btn_text_3">平移效果</string>
+</resources>
