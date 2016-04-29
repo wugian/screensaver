@@ -5,4 +5,5 @@
     <string name="btn_text_1">百叶窗效果</string>
     <string name="btn_text_2">小黑块效果</string>
     <string name="btn_text_3">平移效果</string>
+    <string name="oblique_fringe">斜影效果</string>
 </resources>

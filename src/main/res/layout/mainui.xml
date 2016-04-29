@@ -25,5 +25,12 @@
     	 android:layout_height="wrap_content"
     	 android:layout_marginTop="20dp"
     	 android:text="@string/btn_text_3"/>
+
+    <Button
+         android:id="@+id/btn4"
+         android:layout_width="match_parent"
+    	 android:layout_height="wrap_content"
+    	 android:layout_marginTop="20dp"
+    	 android:text="@string/oblique_fringe"/>
         
 </LinearLayout>

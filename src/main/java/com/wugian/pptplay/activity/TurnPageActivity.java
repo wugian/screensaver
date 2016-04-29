@@ -8,9 +8,9 @@ import android.view.Window;
 
 import com.wugian.pptplay.effects.BlackSquareFadeAway;
 import com.wugian.pptplay.effects.BlackSquareZoomIn;
+import com.wugian.pptplay.effects.ObliqueFringe;
 import com.wugian.pptplay.effects.ShutterDown2Up;
 import com.wugian.pptplay.effects.ShutterLeft2Right;
-import com.wugian.pptplay.effects.ShutterRight2Left;
 import com.wugian.pptplay.effects.ShutterUp2Down;
 import com.wugian.pptplay.effects.TranslateLeft;
 import com.wugian.pptplay.effects.TranslateRight;
@@ -60,13 +60,16 @@ public class TurnPageActivity extends Activity {
                 case 3:
                     turnPage3();
                     break;
+                case 4:
+                    turnPage3();
+                    break;
             }
-            handler.postDelayed(this, 5 * 1000);
-            currentChangeIndexCount++;
-            if (currentChangeIndexCount > 2) {
-                changeIndex = changeIndex % 3 + 1;
-                currentChangeIndexCount = 0;
-            }
+            handler.postDelayed(this, 10 * 1000);
+//            currentChangeIndexCount++;
+//            if (currentChangeIndexCount > 2) {
+//                changeIndex = changeIndex % 3 + 1;
+//                currentChangeIndexCount = 0;
+//            }
         }
     };
 
@@ -83,8 +86,11 @@ public class TurnPageActivity extends Activity {
             case 3:
                 turnPage3();
                 break;
+            case 4:
+                turnPage4();
+                break;
         }
-        handler.postDelayed(change, 5 * 1000);
+        handler.postDelayed(change, 10 * 1000);
         super.onResume();
     }
 
@@ -125,7 +131,7 @@ public class TurnPageActivity extends Activity {
             @Override
             public void onFlingLeft() {
                 nextPage();
-                mTurnPageView.setTurnPageStyle(new ShutterRight2Left());
+                mTurnPageView.setTurnPageStyle(new ObliqueFringe());
             }
 
             @Override
@@ -149,7 +155,7 @@ public class TurnPageActivity extends Activity {
         };
 
         mTurnPageView.setOnFillingListener(mFillingListenerBYC);
-        mTurnPageView.setTurnPageStyle(new ShutterLeft2Right());
+        mTurnPageView.setTurnPageStyle(new ObliqueFringe());
         mTurnPageView.setBitmaps(new Bitmap[]{mBitmaps[curBitmapIndex]});
     }
 
@@ -230,6 +236,56 @@ public class TurnPageActivity extends Activity {
     }
 
     private void nextPage3() {
+        if (curBitmapIndex < mBitmaps.length - 1) {
+            curBitmapIndex++;
+        }
+        mTurnPageView.setBitmaps(new Bitmap[]{mBitmaps[(curBitmapIndex + 1) % 2], mBitmaps[curBitmapIndex]});
+    }
+
+    private void turnPage4() {
+        IFillingEvent mFillingListener = new IFillingEvent() {
+
+            @Override
+            public void onFlingLeft() {
+                nextPage4();
+                mTurnPageView.setTurnPageStyle(new ObliqueFringe());
+            }
+
+            @Override
+            public void onFlingRight() {
+                prePage4();
+                mTurnPageView.setTurnPageStyle(new ObliqueFringe());
+            }
+
+            @Override
+            public void onFlingUp() {
+                nextPage4();
+                mTurnPageView.setTurnPageStyle(new ObliqueFringe());
+            }
+
+            @Override
+            public void onFlingDown() {
+                prePage4();
+                mTurnPageView.setTurnPageStyle(new ObliqueFringe());
+            }
+
+        };
+
+        mTurnPageView.setOnFillingListener(mFillingListener);
+        mTurnPageView.setTurnPageStyle(new ObliqueFringe());
+        mTurnPageView.setBitmaps(new Bitmap[]{mBitmaps[curBitmapIndex], mBitmaps[(curBitmapIndex + 1) % 2]});
+    }
+
+    private void prePage4() {
+        if (curBitmapIndex > 0) {
+            curBitmapIndex--;
+        } else {
+            curBitmapIndex = 0;
+        }
+        mTurnPageView.setBitmaps(new Bitmap[]{mBitmaps[curBitmapIndex], mBitmaps[(curBitmapIndex + 1) % 2]});
+    }
+
+    private void nextPage4() {
         if (curBitmapIndex < mBitmaps.length - 1) {
             curBitmapIndex++;
         }
