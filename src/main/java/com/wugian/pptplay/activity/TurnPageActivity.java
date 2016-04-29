@@ -49,19 +49,22 @@ public class TurnPageActivity extends Activity {
         @Override
         public void run() {
             handler.removeCallbacks(this);
-            curBitmapIndex = (curBitmapIndex + 1) % 2;
             switch (changeIndex) {
                 case 1:
+                    curBitmapIndex = (curBitmapIndex + 1) % 2;
                     turnPage1();
                     break;
                 case 2:
+                    curBitmapIndex = (curBitmapIndex + 1) % 2;
                     turnPage2();
                     break;
                 case 3:
+                    curBitmapIndex = (curBitmapIndex + 1) % 2;
                     turnPage3();
                     break;
                 case 4:
-                    turnPage3();
+                    turnPage4();
+                    curBitmapIndex = (curBitmapIndex + 1) % 2;
                     break;
             }
             handler.postDelayed(this, 10 * 1000);
@@ -273,7 +276,7 @@ public class TurnPageActivity extends Activity {
 
         mTurnPageView.setOnFillingListener(mFillingListener);
         mTurnPageView.setTurnPageStyle(new ObliqueFringe());
-        mTurnPageView.setBitmaps(new Bitmap[]{mBitmaps[curBitmapIndex], mBitmaps[(curBitmapIndex + 1) % 2]});
+        mTurnPageView.setBitmaps(new Bitmap[]{mBitmaps[0], mBitmaps[1]});
     }
 
     private void prePage4() {
@@ -282,14 +285,14 @@ public class TurnPageActivity extends Activity {
         } else {
             curBitmapIndex = 0;
         }
-        mTurnPageView.setBitmaps(new Bitmap[]{mBitmaps[curBitmapIndex], mBitmaps[(curBitmapIndex + 1) % 2]});
+        mTurnPageView.setBitmaps(new Bitmap[]{mBitmaps[0], mBitmaps[1]});
     }
 
     private void nextPage4() {
         if (curBitmapIndex < mBitmaps.length - 1) {
             curBitmapIndex++;
         }
-        mTurnPageView.setBitmaps(new Bitmap[]{mBitmaps[(curBitmapIndex + 1) % 2], mBitmaps[curBitmapIndex]});
+        mTurnPageView.setBitmaps(new Bitmap[]{mBitmaps[0], mBitmaps[1]});
     }
 
 }

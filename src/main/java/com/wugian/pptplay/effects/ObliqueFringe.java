@@ -26,8 +26,15 @@ public class ObliqueFringe implements ITurnPage {
     public void onCreate() {
     }
 
+    /**
+     * @param holder    sh
+     * @param bitmap    bitmap[0] new bitmap,bitmap[1] old bitmap
+     * @param maxWidth  screen width
+     * @param maxHeight screen height
+     */
     @Override
     public void onTurnPageDraw(SurfaceHolder holder, Bitmap[] bitmap, int maxWidth, int maxHeight) {
+        boolean hasRun = bitmap.length < 2;
         int dx = (maxWidth - bitmap[0].getWidth()) / 2;
         int dy = (maxHeight - bitmap[0].getHeight()) / 2;
 
@@ -61,25 +68,60 @@ public class ObliqueFringe implements ITurnPage {
                 if (canvas == null) {
                     return;
                 }
-                canvas.setDrawFilter(pdf);
-                canvas.drawColor(Color.BLACK);// 清除画布
-                canvas.save();
-                canvas.translate(dx, dy);
-                src.set(0, 0, width, height);
-                dst.set(0, 0, width, height);
-                canvas.drawBitmap(bitmap[0], src, dst, null);
+                /**
+                 * this is hide
+                 */
+                if (!hasRun) {
+                    canvas.setDrawFilter(pdf);
+                    canvas.drawColor(Color.BLACK);// 清除画布
+                    canvas.save();
+                    canvas.translate(dx, dy);
+                    src.set(0, 0, width, height);
+                    dst.set(0, 0, width, height);
+                    canvas.drawBitmap(bitmap[1], src, dst, null);
+                    if (isRunning) {
+                        long width1 = l / 100;
+                        if (width1 < 25) {
+                            for (int i = 20; i < cu; i += 25) {
+                                for (int i1 = 0; i1 < width1; i1++) {
+                                    canvas.drawLine(0f, (float) i + (l / 100) + i1, (float) i + (l / 100) + i1, 0f, paint);
+                                }
+                            }
+                        } else {
+                            hasRun = true;
+                            isRunning = true;
+                            start = System.currentTimeMillis();
+                        }
+                    } else {
+                        hasRun = true;
+                        isRunning = true;
+                        start = System.currentTimeMillis();
+                    }
+                    canvas.restore();
+                } else {
+                    /**
+                     * this is show
+                     */
+                    canvas.setDrawFilter(pdf);
+                    canvas.drawColor(Color.BLACK);// 清除画布
+                    canvas.save();
+                    canvas.translate(dx, dy);
+                    src.set(0, 0, width, height);
+                    dst.set(0, 0, width, height);
+                    canvas.drawBitmap(bitmap[0], src, dst, null);
 
-                if (isRunning) {
-                    long width1 = 25 - l / 100;
-                    if (width1 > 2) {
-                        for (int i = 20; i < cu; i += 25) {
-                            for (int i1 = 0; i1 < width1; i1++) {
-                                canvas.drawLine(0f, (float) i + (l / 100) + i1, (float) i + (l / 100) + i1, 0f, paint);
+                    if (isRunning) {
+                        long width1 = 25 - l / 100;
+                        if (width1 > 2) {
+                            for (int i = 20; i < cu; i += 25) {
+                                for (int i1 = 0; i1 < width1; i1++) {
+                                    canvas.drawLine(0f, (float) i + (l / 100) + i1, (float) i + (l / 100) + i1, 0f, paint);
+                                }
                             }
                         }
                     }
+                    canvas.restore();
                 }
-                canvas.restore();
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
