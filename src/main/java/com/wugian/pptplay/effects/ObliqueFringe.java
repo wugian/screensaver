@@ -55,6 +55,7 @@ public class ObliqueFringe implements ITurnPage {
         Rect src = new Rect();
         Rect dst = new Rect();
         isRunning = true;
+//        hasRun = true;
         while (isRunning) {
             long l = System.currentTimeMillis() - start;
             isRunning = ((runMills = l) < duration);
@@ -78,19 +79,13 @@ public class ObliqueFringe implements ITurnPage {
                     canvas.translate(dx, dy);
                     src.set(0, 0, width, height);
                     dst.set(0, 0, width, height);
-                    canvas.drawBitmap(bitmap[1], src, dst, null);
                     if (isRunning) {
+                        canvas.drawBitmap(bitmap[1], src, dst, null);
                         long width1 = l / 100;
-                        if (width1 < 25) {
-                            for (int i = 20; i < cu; i += 25) {
-                                for (int i1 = 0; i1 < width1; i1++) {
-                                    canvas.drawLine(0f, (float) i + (l / 100) + i1, (float) i + (l / 100) + i1, 0f, paint);
-                                }
+                        for (int i = 0; i < cu + 1; i += 25) {
+                            for (int i1 = 0; i1 < 25; i1++) {
+                                canvas.drawLine(0f, (float) i + /*(l / 100) +*/ i1, (float) i + /*(l / 100) +*/ i1, 0f, paint);
                             }
-                        } else {
-                            hasRun = true;
-                            isRunning = true;
-                            start = System.currentTimeMillis();
                         }
                     } else {
                         hasRun = true;
@@ -112,13 +107,13 @@ public class ObliqueFringe implements ITurnPage {
 
                     if (isRunning) {
                         long width1 = 25 - l / 100;
-                        if (width1 > 2) {
-                            for (int i = 20; i < cu; i += 25) {
-                                for (int i1 = 0; i1 < width1; i1++) {
-                                    canvas.drawLine(0f, (float) i + (l / 100) + i1, (float) i + (l / 100) + i1, 0f, paint);
-                                }
+//                        if (width1 > 2) {
+                        for (int i = 0; i < cu; i += 25) {
+                            for (int i1 = 0; i1 < 25; i1++) {
+                                canvas.drawLine(0f, (float) i + /*(l / 100) + */i1, (float) i + /*(l / 100) + */i1, 0f, paint);
                             }
                         }
+//                        }
                     }
                     canvas.restore();
                 }

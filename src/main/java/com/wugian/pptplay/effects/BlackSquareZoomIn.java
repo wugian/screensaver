@@ -25,9 +25,7 @@ public class BlackSquareZoomIn implements ITurnPage {
     }
 
     @Override
-    public void onTurnPageDraw(SurfaceHolder holder, Bitmap[] bitmap,
-                               int maxWidth, int maxHeight) {
-
+    public void onTurnPageDraw(SurfaceHolder holder, Bitmap[] bitmap, int maxWidth, int maxHeight) {
         int dx = (maxWidth - bitmap[0].getWidth()) / 2;
         int dy = (maxHeight - bitmap[0].getHeight()) / 2;
         int perWidth = maxWidth / leafNum;

@@ -41,7 +41,7 @@ public class TurnPageActivity extends Activity {
         setContentView(mTurnPageView);
     }
 
-    private int changeIndex = 1;
+    private int changeIndex = 4;
     private Handler handler = new Handler();
     private int currentChangeIndexCount = 0;
 
@@ -246,38 +246,16 @@ public class TurnPageActivity extends Activity {
     }
 
     private void turnPage4() {
-        IFillingEvent mFillingListener = new IFillingEvent() {
-
-            @Override
-            public void onFlingLeft() {
-                nextPage4();
-                mTurnPageView.setTurnPageStyle(new ObliqueFringe());
-            }
-
-            @Override
-            public void onFlingRight() {
-                prePage4();
-                mTurnPageView.setTurnPageStyle(new ObliqueFringe());
-            }
-
-            @Override
-            public void onFlingUp() {
-                nextPage4();
-                mTurnPageView.setTurnPageStyle(new ObliqueFringe());
-            }
-
-            @Override
-            public void onFlingDown() {
-                prePage4();
-                mTurnPageView.setTurnPageStyle(new ObliqueFringe());
-            }
-
-        };
-
-        mTurnPageView.setOnFillingListener(mFillingListener);
         mTurnPageView.setTurnPageStyle(new ObliqueFringe());
-        mTurnPageView.setBitmaps(new Bitmap[]{mBitmaps[0], mBitmaps[1]});
+        if (other) {
+            mTurnPageView.setBitmaps(new Bitmap[]{mBitmaps[0], mBitmaps[1]});
+        } else {
+            mTurnPageView.setBitmaps(new Bitmap[]{mBitmaps[1], mBitmaps[0]});
+        }
+        other = !other;
     }
+
+    boolean other = true;
 
     private void prePage4() {
         if (curBitmapIndex > 0) {
